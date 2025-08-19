@@ -1,0 +1,41 @@
+<gpEID>        ::= <OrtsID> <FunktionsID> <TypID> <ProduktID> <ZusatzIDs>
+; Nur <ZusatzIDs> sind optional. Alle vier Hauptaspekte sind Pflicht.
+
+; ===== ORT =====
+<OrtsID>        ::= "=" <OrtSeq>
+<OrtSeq>        ::= <Liegenschaft> ( "." [<OrtTeil>] )*    ; Lücken innen erlaubt (.), kein Endpunkt
+<Liegenschaft>  ::= <OrtReal>                              ; Liegenschaft ≠ "TBD"
+<OrtTeil>       ::= <OrtReal> | "TBD"                      ; mittlere Ebenen dürfen "TBD" sein
+<OrtReal>       ::= <uni-alnum>+                           ; nur Buchst./Ziffern (Unicode), keine Sonderz.
+
+; ===== FUNKTION =====
+<FunktionsID>  ::= "+" <FktSeq>
+<FktSeq>       ::= <FktTeil> ( "." <FktTeil> )*
+<FktTeil>      ::= "TBD" | <AAA>                          ; genau 3 Großbuchstaben (A–Z), z. B. HLK
+; <AAA>        ::= "A" | "B" | ... | "Z"  (3×)
+
+; ===== TYP =====
+<TypID>        ::= "_" <TypSeq>
+<TypSeq>       ::= <TypCore> "." <Zaehl>                  ; Zähler ist verbindlich
+<TypCore>      ::= <TypTeil> ( "." <TypTeil> )*           ; mind. ein Teil
+<TypTeil>      ::= "TBD" | <WithLetter>                   ; kein reines Zahlentoken
+<Zaehl>        ::= <digit><digit><digit>                  ; 3-stellig (001–999)
+<WithLetter>   ::= <uni-alnum>* <uni-letter> <uni-alnum>* ; enthält mind. 1 Buchstaben
+
+; ===== PRODUKT (immer zweiteilig) =====
+<ProduktID>    ::= ":" <ProdSeq>
+<ProdSeq>      ::= <ProdTeil> "." <ProdTeil>              ; Hersteller.Produkt
+<ProdTeil>     ::= "TBD" | <uni-alnum>+
+
+; ===== ZUSÄTZE (0..n) =====
+<ZusatzIDs>    ::= ( <ZusatzID> )*
+<ZusatzID>     ::= <ZSep> <ZSeq>
+<ZSep>         ::= "-" | "$" | "|"
+<ZSeq>         ::= <ZTeil> ( "." <ZTeil> )*
+<ZTeil>        ::= <uni-alnum>+
+
+; ===== Alphabet =====
+<uni-alnum>    ::= <uni-letter> | <digit>                 ; Unicode L* & Nd (inkl. ÄÖÜäöüß)
+<uni-letter>   ::= any Unicode Letter (L*)
+<digit>        ::= "0"…"9"
+; Verboten in allen <…Teil>: '= + _ : - $ | .' sowie Leer-/Sonderzeichen.

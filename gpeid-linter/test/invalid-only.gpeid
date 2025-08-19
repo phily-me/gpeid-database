@@ -1,0 +1,71 @@
+; Test file with ONLY INVALID gpEID identifiers
+; All of these should show errors when validated
+
+; INVALID: Liegenschaft cannot be TBD
+=TBD+HLK_Sensor.001:Vendor.Product
+=TBD.Floor2+ABC_Device.001:Make.Model
+
+; INVALID: Missing required prefix symbols
+Building+HLK_Sensor.001:Vendor.Product
+=Building.HLK_Sensor.001:Vendor.Product
+=Building+HLK.Sensor.001:Vendor.Product
+=Building+HLK_Sensor.001.Vendor.Product
+
+; INVALID: Function must be exactly 3 uppercase letters
+=Building+hlk_Sensor.001:Vendor.Product
+=Building+HLKV_Sensor.001:Vendor.Product
+=Building+HL_Sensor.001:Vendor.Product
+=Building+H1K_Sensor.001:Vendor.Product
+=Building+123_Sensor.001:Vendor.Product
+
+; INVALID: Type part cannot be pure numbers
+=Building+HLK_123.001:Vendor.Product
+=Building+HLK_456789.001:Vendor.Product
+=Building+HLK_000.001:Vendor.Product
+
+; INVALID: Counter issues
+=Building+HLK_Sensor.000:Vendor.Product
+=Building+HLK_Sensor.00:Vendor.Product
+=Building+HLK_Sensor.1:Vendor.Product
+=Building+HLK_Sensor.99:Vendor.Product
+=Building+HLK_Sensor.9999:Vendor.Product
+=Building+HLK_Sensor.ABC:Vendor.Product
+=Building+HLK_Sensor:Vendor.Product
+
+; INVALID: Product must have exactly two parts
+=Building+HLK_Sensor.001:Vendor
+=Building+HLK_Sensor.001:Vendor.Product.Extra
+=Building+HLK_Sensor.001:
+
+; INVALID: Forbidden characters in identifiers
+=Building@Home+HLK_Sensor.001:Vendor.Product
+=Building+HLK_Sen!sor.001:Vendor.Product
+=Building+HLK_Sensor.001:Vendor#1.Product
+=Building+HLK_Sensor.001:Vendor.Product*2
+=Building(1)+HLK_Sensor.001:Vendor.Product
+
+; INVALID: Spaces not allowed
+=Building 1+HLK_Sensor.001:Vendor.Product
+=Building+HLK_Sen sor.001:Vendor.Product
+=Building+HLK_Sensor.001:Vendor Name.Product
+
+; INVALID: Wrong separator in extensions
+=Building+HLK_Sensor.001:Vendor.Product+Extra.data
+=Building+HLK_Sensor.001:Vendor.Product_Extra.data
+=Building+HLK_Sensor.001:Vendor.Product:Extra.data
+=Building+HLK_Sensor.001:Vendor.Product=Extra.data
+
+; INVALID: Incomplete structures
+=+HLK_Sensor.001:Vendor.Product
+=Building+_Sensor.001:Vendor.Product
+=Building+HLK_:Vendor.Product
+=Building+HLK_Sensor.001:
+
+; INVALID: Mixed case in function codes when should be uppercase
+=Building+Hlk_Sensor.001:Vendor.Product
+=Building+hLK_Sensor.001:Vendor.Product
+=Building+HlK_Sensor.001:Vendor.Product
+
+; INVALID: Extra text after valid gpEID (should be caught as unexpected characters)
+=Building+HLK_Sensor.001:Vendor.Product extra text here
+=Building+HLK_Sensor.001:Vendor.Product!!!

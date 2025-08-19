@@ -1,0 +1,40 @@
+; Test file with ONLY VALID gpEID identifiers
+; All of these should pass validation without any errors
+
+; Basic valid examples
+=Gebäude1+HLK_Sensor.001:Siemens.ABC123
+=Building+VEN_Controller.042:Honeywell.T6Pro
+=Campus+SEC_Camera.015:Axis.P3245LV
+
+; Complex hierarchical locations
+=Building.Floor2.Room3+HLK.VEN.TMP_Controller.042:Honeywell.T6Pro
+=Campus.BuildingA.Floor3.Room42+HVA.CTR.SEN_Temperature.003:Siemens.QAA75
+=Site.Tower.Level5.Zone2+ELE.LIG.SWI_Dimmer.007:Schneider.MTN6725
+
+; With gaps in location hierarchy (allowed)
+=Site1..Room5+TBD.HLK_TBD.TBD.005:TBD.TBD
+=Building...EndRoom+ABC_Test.123:Vendor.Product
+=Start..Middle..End+XYZ_Component.999:Make.Model
+
+; With TBD placeholders (except Liegenschaft)
+=ValidStart.TBD.TBD+TBD.TBD.TBD_TBD.001:TBD.TBD
+=Office.TBD+TBD_ValidType.100:TBD.TBD
+=Warehouse.TBD.TBD.TBD+ABC.DEF.GHI_Sensor.500:Company.TBD
+
+; With extensions (single)
+=Haus+HLK_Sensor.001:Siemens.Model-Config.v1
+=Building+SEC_Door.002:HID.VertX$Serial.98765
+=Factory+MAN_Robot.003:KUKA.KR16|Zone.A1
+
+; With multiple extensions
+=Lab+EQU_Microscope.001:Zeiss.Axio-Config.2024$License.PRO|Maintenance.GOLD
+=Server+NET_Switch.048:Cisco.C9300$Port.48|VLAN.100-Rack.A12
+=Plant+CTR_PLC.001:Siemens.S71500-Module.DI$Module.DO|Module.AI-Module.AO
+
+; German umlauts and special characters
+=Büro.Süd+HLK_Wärme.001:Müller.Gerät
+=Österreich.Wien+ÜBE_Prüfung.999:Größe.Äußerst
+=Zürich.Hauptstraße+TÜV_Überprüfung.050:Düsseldorf.Köln
+
+; Maximum complexity example
+=Campus.BuildingA..Floor3.Room42.Rack12+HVA.CTR.SEN.MON.ALR_Temperature.Wireless.v2.003:Siemens.QAA75.Extended.2024-Config.Advanced$FirmwareVersion.3.2.1|InstallDate.20240315-MaintenanceContract.Gold$SerialNumber.ABC123DEF456|Location.GPS.47.3769.8.5417

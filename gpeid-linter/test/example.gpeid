@@ -1,0 +1,21 @@
+; Example gpEID file for testing the linter
+; Valid examples:
+
+=Gebäude1+HLK_Sensor.001:Siemens.ABC123
+=Building.Floor2.Room3+HLK.VEN.TMP_Controller.042:Honeywell.T6Pro
+=Site1..Room5+TBD.HLK_TBD.TBD.005:TBD.TBD
+=Haus+HLK_Sensor.001:Siemens.Model-Config.v1$Serial.12345|Test.abc
+=Büro.Süd+HLK_Wärme.001:Müller.Gerät
+
+; Invalid examples (should show errors):
+
+=TBD+HLK_Sensor.001:Vendor.Product  ; Liegenschaft cannot be TBD
+=Building+hlk_Sensor.001:Vendor.Product  ; Function must be uppercase
+=Building+HLK_123.001:Vendor.Product  ; Type cannot be pure numbers
+=Building+HLK_Sensor.000:Vendor.Product  ; Counter cannot be 000
+=Building+HLK_Sensor.99:Vendor.Product  ; Counter must be 3 digits
+=Building+HLK_Sensor.001:Vendor  ; Product needs two parts
+Building+HLK_Sensor.001:Vendor.Product  ; Missing = prefix
+
+; Complex valid example with all features:
+=Campus.BuildingA..Floor3.Room42+HVA.CTR.SEN_Temperature.Wireless.v2.003:Siemens.QAA75-Ext.2024$FirmwareVersion.3.2.1|InstallDate.20240315-MaintenanceContract.Gold
