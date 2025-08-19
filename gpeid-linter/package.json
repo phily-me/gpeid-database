@@ -43,7 +43,6 @@
   },
   "scripts": {
     "test": "node test/test-parser.js",
-    "package": "vsce package --no-dependencies",
     "build": "vsce package --no-dependencies"
   },
   "devDependencies": {

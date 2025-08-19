@@ -51,8 +51,10 @@ Hover over any valid gpEID string to see its parsed components.
 
 1. Open the `gpeid-linter` folder in VSCode
 2. Run `npm install` to install dependencies
-3. Press `F5` to open a new VSCode window with the extension loaded
-4. Open any file and start writing gpEID strings
+3. Run `npm build` to create a VSCode extension
+4. Go to Extensions in VSCode and run `Install from VSIX` and load the built extension from `./gpeid-linter/gpeid-linter-x.x.x.vsix`
+5. Press `F5` to open a new VSCode window with the extension loaded
+6. Open any file and start writing gpEID strings
 
 ## Requirements
 
